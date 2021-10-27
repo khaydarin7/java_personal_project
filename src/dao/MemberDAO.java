@@ -109,26 +109,24 @@ public class MemberDAO {
 		return dtos;
 	}
 	//음원 추가
-	public ArrayList<MemberVO> setMembers(int no, String title, String singer,String lyricist,String songwriter,String release_date,String genre) {
-			String SQL = "Insert INTO music_chart(no,title,singer,lyricist,songwriter,release_date,genre) VALUES(?,?,?,?,?,?,?)";
+	public ArrayList<MemberVO> setchart(int Rank, String SongTitle, String SingerName,String AlbumTitle) {
+			String SQL = "Insert INTO geniechart(Rank,SongTitle,SingerName,AlbumTitle) VALUES(?,?,?,?)";
 			try {
 				pstmt=con.prepareStatement(SQL);
-				pstmt.setInt(1, no);
-				pstmt.setString(2, title);
-				pstmt.setString(3, singer);
-				pstmt.setString(4, lyricist);
-				pstmt.setString(5, songwriter);
-				pstmt.setString(6, release_date);
-				pstmt.setString(7, genre);
+				pstmt.setInt(1, Rank);
+				pstmt.setString(2, SongTitle);
+				pstmt.setString(3, SingerName);
+				pstmt.setString(4, AlbumTitle);
 				pstmt.executeUpdate();
-			}catch(SQLException e) {
+			}
+			catch(SQLException e) {
 				e.printStackTrace();
 			}
 			return dtos;
 		}
 	//음원 삭제
-	public ArrayList<MemberVO> deleteMembers(String input_title) {
-		String SQL = "delete from music_chart where title='"+input_title+"'";
+	public ArrayList<MemberVO> deletechart(String input_title) {
+		String SQL = "delete from geniechart where SongTitle='"+input_title+"'";
 		try {
 			rs=st.executeQuery(SQL);
 		}
@@ -138,17 +136,14 @@ public class MemberDAO {
 		return dtos;
 	}
 	//음원 수정
-	public ArrayList<MemberVO> updateMembers(int no, String title, String singer,String lyricist,String songwriter,String release_date,String genre) {
-		String SQL = "UPDATE music_chart SET title=?, singer=?, lyricist=?, songwriter=?, release_date=?, genre=? where no=?";
+	public ArrayList<MemberVO> updatechart(int Rank, String SongTitle, String SingerName,String AlbumTitle) {
+		String SQL = "UPDATE geniechart SET SongTitle=?, SingerName=?, AlbumTitle=? where Rank=?";
 		try {
 			pstmt=con.prepareStatement(SQL);
-			pstmt.setString(1, title);
-			pstmt.setString(2, singer);
-			pstmt.setString(3, lyricist);
-			pstmt.setString(4, songwriter);
-			pstmt.setString(5, release_date);
-			pstmt.setString(6, genre);
-			pstmt.setInt(7, no);
+			pstmt.setString(1, SongTitle);
+			pstmt.setString(2, SingerName);
+			pstmt.setString(3, AlbumTitle);
+			pstmt.setInt(4, Rank);
 			pstmt.executeUpdate();
 		}
 		catch(SQLException e) {
